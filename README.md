@@ -2,7 +2,7 @@
 
 > Free open-source tutorial on creating a basic web app using golang library Blackfriday and WebAssembly as compilation target
 
-This repository contains code and related materials for [Building webapps using golang and wasm]() video.
+This repository contains code and related materials for [Building webapps using golang and wasm](https://youtu.be/_3aVmnPufQI) video.
 
 ## Project description
 
