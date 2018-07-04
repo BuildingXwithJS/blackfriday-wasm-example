@@ -2,20 +2,19 @@ package main
 
 import (
 	"syscall/js"
+
 	"gopkg.in/russross/blackfriday.v2"
 )
 
 func main() {
-	inputArea := js.Global().Get("document").Call("getElementById", "input")
-	inputText := inputArea.Get("value").String()
-	result := format(inputText)
-
-	outputDiv := js.Global().Get("document").Call("getElementById", "output")
-	outputDiv.Set("innerHTML", result)
+	c := make(chan struct{}, 0)
+	js.Global().Set("blackfridayFormat", js.NewCallback(format))
+	<-c
 }
 
-func format(input string) string {
-	outputBytes := blackfriday.Run([]byte(input))
+func format(input []js.Value) {
+	message := input[0].String()
+	outputBytes := blackfriday.Run([]byte(message))
 	output := string(outputBytes)
-	return output
+	input[1].Invoke(output)
 }

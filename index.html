@@ -27,18 +27,31 @@ license that can be found in the LICENSE file.
 			mod = result.module;
 			inst = result.instance;
 			document.getElementById("runButton").disabled = false;
+			run();
 		});
 
 		async function run() {
-			console.clear();
 			await go.run(inst);
+			
 			inst = await WebAssembly.instantiate(mod, go.importObject); // reset instance
 		}
+
+
+		function output(str) {
+			document.querySelector('#output').innerHTML = str;
+		}
+
+		function convert() {
+			let input = document.querySelector('#input').value;
+			blackfridayFormat(input, output);
+		}
+
+
 	</script>
 
 	<textarea id="input" placeholder="Enter your markdown"></textarea>
 	<div id="output"></div>
-	<button onClick="run();" id="runButton" disabled>Convert</button>
+	<button onClick="convert();" id="runButton" disabled>Convert</button>
 </body>
 
 </html>
